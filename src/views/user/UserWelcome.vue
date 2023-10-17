@@ -53,7 +53,7 @@
                 // updates the property to store their answer
                 this.chosenOptions[data.index].answered = data.answered;
                 this.chosenOptions[data.index].userAnswer.answer = data.option;
-                this.chosenOptions[data.index].stressRating = data.stressRating;
+                this.chosenOptions[data.index].stressPercent = data.stressPercent;
 
                 // also remove the error message
                 this.error = false;
@@ -64,11 +64,12 @@
 
                     const defaultOption = {
                         answered: false, 
+                        weight: this.info[i].weight,
                         userAnswer: {
                             question: this.info[i].question, 
                             answer: ''
                         },
-                        stressRating: 0
+                        stressPercent: 0
                     }
                     this.chosenOptions.push(defaultOption);
                 }
@@ -89,14 +90,17 @@
             },
             submitAnswer(event) {
                 event.preventDefault();
-                
+
+                // console.log(this.chosenOptions);
+
                 axios.put(`http://localhost:3000/api/submit-answer/${this.userData._id}`, this.chosenOptions)
                 .then((response) => {
-                    if(response.status === 200) {
-                        this.$router.push('/thank-you')
-                    } else{
-                        console.log(response);
-                    }
+                    // if(response.status === 200) {
+                    //     this.$router.push('/thank-you')
+                    // } else{
+                    //     console.log(response);
+                    // }
+                    console.log(response.data);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -139,6 +143,8 @@
                     <button class="btn btn-primary" type="submit" @click="submitAnswer" v-else>Submit</button>
                 </div>
             </form>
+
+            {{ chosenOptions }}
 
 
         </div>

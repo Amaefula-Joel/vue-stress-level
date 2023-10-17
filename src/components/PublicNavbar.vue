@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="mb-4">
         <nav class="navbar navbar-expand-md bg-dark navbar-dark">
             <!-- Brand -->
             <a class="navbar-brand" href="/">Questionaire</a>

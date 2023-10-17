@@ -47,7 +47,7 @@
                     <div v-for="(questionItem, index) in questions" :key="questionItem._id" class="p-1">
 
                         <div class="px-3 py-4 bg-dark">
-                            <p class="text-light mb-3">{{ index + 1 + "). " + questionItem.question }}</p>
+                            <p class="text-light mb-3">{{ index + 1 + ". " + questionItem.question }}</p>
     
                             <div class="text-center">
                                 <button class="btn btn-light mr-2" @click="fullQuestion(questionItem)">See More</button>

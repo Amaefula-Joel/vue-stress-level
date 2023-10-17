@@ -35,20 +35,25 @@
 
     <div>
 
+        <div class="mb-3">
+            <button class="btn btn-dark" @click="this.$emit('change-viewed-comp', 'view-questions');"><i class="fa fa-chevron-left"></i> Go Back</button>
+        </div>
+
         <h3>Full Questions Details</h3>
         
         <div>
-            <button class="btn btn-dark" @click="this.$emit('change-viewed-comp', 'view-questions');"><i class="fa fa-chevron-left"></i> Go Back</button>
-        </div>
-        <div>
 
-            <h4>{{ singleQuestion.question }}</h4>
-
-            <ol>
-                <li v-for="item in singleQuestion.options" :key="item._id"> 
-                    {{ item.option }} <b>(rating: {{ item.stressRating }})</b> 
+            <ul>
+                <li>Question: <b>{{ singleQuestion.question }}</b></li>
+                <li>Weight <b>{{ singleQuestion.weight }}</b></li>
+                <li>Options:
+                    <ol>
+                        <li v-for="item in singleQuestion.options" :key="item._id"> 
+                            {{ item.option }} <b>(rating: {{ item.stressPercent }})</b> 
+                        </li>
+                    </ol>
                 </li>
-            </ol>
+            </ul>
 
             <div>
                 <button class="btn btn-success mr-2">Edit</button>

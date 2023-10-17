@@ -45,6 +45,9 @@
 
 <style>
   body{
-      background-color: rgb(223, 223, 223);
+      background-color: rgb(243, 243, 243);
+  }
+  .form-control{
+    border: 1px solid rgb(119, 119, 119);
   }
 </style>

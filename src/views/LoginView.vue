@@ -3,10 +3,24 @@
     <div>
         <public-navbar/>
         
-        <div class="container my-4" style="max-width: 600px;">
+        <div class="container" style="max-width: 600px;">
             <h2 class="mb-4">Login to your account</h2>
+
+            <div class="error-container mb-3">
+                <!-- if the email isn't attached to any account in the database -->
+                <div v-if="errorMessage.message === 'noAccountMatch' && errorMessage.visible === true" class="alert alert-danger fade show">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>No account matched email</strong>
+                </div>
+
+                <!-- if the password is wrong -->
+                <div v-else-if="errorMessage.message === 'wrongPassword' && errorMessage.visible === true" class="alert alert-danger fade show">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Wrong Password</strong>
+                </div>
+            </div>
     
-            <form @submit="Login">
+            <form @submit.prevent="Login">
                 <div class="form-group">
                     <label>Email Adress</label>
                     <input type="email" placeholder="email" class="form-control" autocomplete="username" v-model="email" required>
@@ -30,23 +44,38 @@
         data() {
             return{
                 email: '',
-                password: ''
+                password: '',
+                errorMessage: {
+                    message: '',
+                    visible: false
+                }
             }
         },
         methods: {
-            Login(event) {
-                event.preventDefault();
+            printError(error) {
+                this.errorMessage.message = error;
+                this.errorMessage.visible = true;
+            },
+            Login() {
                 if (this.email === '' && this.password === '') {
                     console.log("wrong email and password");
                 } else {
                     axios.post('http://localhost:3000/api/login', {email: this.email, password: this.password})
                     .then((response) => {
-                        const token = response.data.token;
 
-                        localStorage.setItem('token', token);
-
-                        this.$router.push('/userwelcome');
-                        // console.log(token);
+                        if (response.data.noAccountMatch === true) {
+                            // if the email doesn't match any account in the database 
+                            this.printError("noAccountMatch");
+                        } else if(response.data.wrongPassword === true) {
+                            // if the password is wrong 
+                            this.printError("wrongPassword");
+                        } else{
+                            const token = response.data.token;
+    
+                            localStorage.setItem('token', token);
+    
+                            this.$router.push('/userwelcome');
+                        }
                     })
                     .catch((err) => {
                         console.log(err);

@@ -4,8 +4,8 @@
         
         <div class="options-container">
             <label v-for="x in options" :key="x.option" :class="{chosen: whetherSelected === x.option}">
-            {{ x.option }}
-                <input type="radio" v-model="selected" :name="'option'+ (index + 1)" :value="x.option" @change="optionSelect(x.option), sendAnswer(index, x.option, x.stressRating)">
+                {{ x.option }}
+                <input type="radio" v-model="selected" :name="'option'+ (index + 1)" :value="x.option" @change="optionSelect(x.option), sendAnswer(index, x.option, x.stressPercent)">
             </label>
         </div>
     </div>   
@@ -28,7 +28,7 @@
                     index: null,
                     answered: false, 
                     option: '',
-                    stressRating: 0
+                    stressPercent: 0
                 }
             }
         },
@@ -36,12 +36,12 @@
             optionSelect(option) {
                 this.whetherSelected = option;
             },
-            sendAnswer(index, answer, stressRating) {
+            sendAnswer(index, answer, stressPercent) {
                 this.userAnswer = {
                     index: index,
                     answered: true, 
                     option: answer,
-                    stressRating: stressRating
+                    stressPercent: stressPercent
                 }
                 
                 this.$emit('answer-emitted', this.userAnswer);
@@ -50,7 +50,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     h2{
         text-align: left;
         margin-bottom: 15px;
