@@ -33,6 +33,6 @@
         <h2>Thank You {{ userName }}</h2>
         <p>Thank you for your answers</p>
 
-        <img src="icon-thank-you.svg" alt="">
+        <img src="/icon-thank-you.svg" alt="">
     </div>
 </template>

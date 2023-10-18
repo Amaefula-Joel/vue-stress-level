@@ -91,16 +91,13 @@
             submitAnswer(event) {
                 event.preventDefault();
 
-                // console.log(this.chosenOptions);
-
                 axios.put(`http://localhost:3000/api/submit-answer/${this.userData._id}`, this.chosenOptions)
                 .then((response) => {
-                    // if(response.status === 200) {
-                    //     this.$router.push('/thank-you')
-                    // } else{
-                    //     console.log(response);
-                    // }
-                    console.log(response.data);
+                    if(response.status === 200) {
+                        this.$router.push('/thank-you')
+                    } else{
+                        console.log(response);
+                    }
                 })
                 .catch((err) => {
                     console.log(err);
@@ -143,8 +140,6 @@
                     <button class="btn btn-primary" type="submit" @click="submitAnswer" v-else>Submit</button>
                 </div>
             </form>
-
-            {{ chosenOptions }}
 
 
         </div>
